@@ -1,7 +1,7 @@
 import { Navbar, Container, Nav } from 'react-bootstrap'
-import { Link, NavLink } from 'react-router-dom'
+import { Link, NavLink, Outlet } from 'react-router-dom'
 
-export default function Layout({ children }) {
+export default function Layout() {
   return (
     <>
       <Navbar bg="dark" variant="dark" expand="lg" sticky="top">
@@ -20,7 +20,7 @@ export default function Layout({ children }) {
         </Container>
       </Navbar>
       <Container className="py-4">
-        {children}
+        <Outlet />
       </Container>
     </>
   )
