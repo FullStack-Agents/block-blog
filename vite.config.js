@@ -5,4 +5,10 @@ import blogPosts from './vite-plugin-blog-posts.js'
 export default defineConfig({
   plugins: [react(), blogPosts()],
   base: '/block-blog/',
+  build: {
+    minify: 'esbuild',
+    esbuild: {
+      keepNames: true,
+    },
+  },
 })

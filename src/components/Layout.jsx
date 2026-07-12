@@ -1,7 +1,7 @@
 import { Navbar, Container, Nav } from 'react-bootstrap'
 import { Link, NavLink, Outlet } from 'react-router-dom'
 
-const BlogLayout = () => {
+export default function BlockBlogLayout() {
   return (
     <>
       <Navbar bg="dark" variant="dark" expand="lg" sticky="top">
@@ -25,5 +25,3 @@ const BlogLayout = () => {
     </>
   )
 }
-
-export default BlogLayout
