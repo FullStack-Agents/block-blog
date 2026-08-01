@@ -15,6 +15,12 @@ export default function BlockBlogLayout() {
               <NavLink to="/" className="nav-link">
                 Home
               </NavLink>
+              <NavLink to="/ask" className="nav-link">
+                Ask Block
+              </NavLink>
+              <NavLink to="/conversations" className="nav-link">
+                Q&A Archive
+              </NavLink>
             </Nav>
           </Navbar.Collapse>
         </Container>

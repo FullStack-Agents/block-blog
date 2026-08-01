@@ -4,6 +4,8 @@ import { createHashRouter, RouterProvider } from 'react-router-dom'
 import BlogLayout from './components/Layout'
 import Home from './pages/Home'
 import PostPage from './pages/PostPage'
+import Ask from './pages/Ask'
+import Conversations from './pages/Conversations'
 import NotFound from './pages/NotFound'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './App.css'
@@ -15,6 +17,8 @@ const router = createHashRouter([
     children: [
       { index: true, element: <Home /> },
       { path: 'post/:slug', element: <PostPage /> },
+      { path: 'ask', element: <Ask /> },
+      { path: 'conversations', element: <Conversations /> },
       { path: '*', element: <NotFound /> },
     ],
   },
