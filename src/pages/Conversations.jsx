@@ -109,9 +109,17 @@ export default function Conversations() {
       {pageItems.map((c) => (
         <Card key={c.id} className="mb-3">
           <Card.Body>
-            <Card.Title>{c.question}</Card.Title>
+            <Card.Subtitle className="mb-2 text-muted text-uppercase small">
+              Question
+            </Card.Subtitle>
+            <Card.Title className="mb-3">{c.question}</Card.Title>
+
+            <Card.Subtitle className="mb-2 text-muted text-uppercase small">
+              Answer
+            </Card.Subtitle>
             <Card.Text style={{ whiteSpace: 'pre-wrap' }}>{c.answer}</Card.Text>
-            <Card.Footer className="text-muted">
+
+            <Card.Footer className="text-muted mt-3">
               {new Date(c.timestamp).toLocaleString()}
             </Card.Footer>
           </Card.Body>
