@@ -87,12 +87,26 @@ export async function publishNip04DM({
 
   const relay = await Relay.connect(relayUrl)
   try {
+    const encrypted = await nip04.encrypt(privateKey, recipientPubkey, content)
+
+    const eventTemplate = {
+      kind: 4,
+      created_at: Math.floor(Date.now() / 1000),
+      tags: [['p', recipientPubkey]],
+      content: encrypted
+    }
+
+    const sk = hexToBytes(privateKey)
+    const signedEvent = finalizeEvent(eventTemplate, sk)
+
     await relay.publish(signedEvent)
+    return signedEvent
+  } catch (err) {
+    console.error('publishNip04DM failed:', err)
+    throw err
   } finally {
     relay.close()
   }
-
-  return signedEvent
 }
 
 /**
