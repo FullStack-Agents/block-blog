@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { Container, Form, Button, Card, Spinner, Alert } from 'react-bootstrap'
+import MarkdownRenderer from '../components/MarkdownRenderer'
 import {
   loadEphemeralKeypair,
   clearEphemeralKeypair,
@@ -228,9 +229,12 @@ export default function Ask() {
                       ? 'bg-primary text-white'
                       : 'bg-white border'
                   }`}
-                  style={{ maxWidth: '80%', whiteSpace: 'pre-wrap' }}
+                  style={{ maxWidth: '80%' }}
                 >
-                  {msg.content}
+                  <MarkdownRenderer
+                    content={msg.content}
+                    variant={msg.role === 'user' ? 'dark' : 'light'}
+                  />
                   <div
                     className={`mt-1 small ${
                       msg.role === 'user' ? 'text-white-50' : 'text-muted'

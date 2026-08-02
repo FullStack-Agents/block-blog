@@ -4,24 +4,33 @@
 .blog-content h3,
 .blog-content h4,
 .blog-content h5,
-.blog-content h6 {
-  margin-top: 1.5rem;
+.blog-content h6,
+.markdown-content h1,
+.markdown-content h2,
+.markdown-content h3,
+.markdown-content h4,
+.markdown-content h5,
+.markdown-content h6 {
+  margin-top: 1.25rem;
   margin-bottom: 0.75rem;
 }
 
-.blog-content p {
+.blog-content p,
+.markdown-content p {
   margin-bottom: 1rem;
   line-height: 1.7;
 }
 
-.blog-content img {
+.blog-content img,
+.markdown-content img {
   max-width: 100%;
   height: auto;
   border-radius: 0.375rem;
   margin: 1rem 0;
 }
 
-.blog-content pre {
+.blog-content pre,
+.markdown-content pre {
   background-color: #f8f9fa;
   border: 1px solid #dee2e6;
   border-radius: 0.375rem;
@@ -30,20 +39,23 @@
   margin-bottom: 1rem;
 }
 
-.blog-content code {
+.blog-content code,
+.markdown-content code {
   background-color: #f8f9fa;
   padding: 0.125rem 0.375rem;
   border-radius: 0.25rem;
   font-size: 0.875em;
 }
 
-.blog-content pre code {
+.blog-content pre code,
+.markdown-content pre code {
   background-color: transparent;
   padding: 0;
   border-radius: 0;
 }
 
-.blog-content blockquote {
+.blog-content blockquote,
+.markdown-content blockquote {
   border-left: 4px solid #0d6efd;
   padding-left: 1rem;
   margin-left: 0;
@@ -53,13 +65,76 @@
 }
 
 .blog-content ul,
-.blog-content ol {
+.blog-content ol,
+.markdown-content ul,
+.markdown-content ol {
   margin-bottom: 1rem;
   padding-left: 2rem;
 }
 
-.blog-content a {
+.blog-content a,
+.markdown-content a {
   color: #0d6efd;
+}
+
+/* Markdown inside the user's primary-blue chat bubble */
+.markdown-content-dark pre {
+  background-color: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.25);
+  color: #fff;
+}
+
+.markdown-content-dark code {
+  background-color: rgba(255, 255, 255, 0.2);
+  color: #fff;
+}
+
+.markdown-content-dark pre code {
+  background-color: transparent;
+}
+
+.markdown-content-dark a {
+  color: #ccebff;
+  text-decoration: underline;
+}
+
+.markdown-content-dark blockquote {
+  border-left-color: rgba(255, 255, 255, 0.5);
+  color: rgba(255, 255, 255, 0.9);
+}
+
+/* Compact markdown for chat bubbles */
+.markdown-content > *:first-child {
+  margin-top: 0;
+}
+
+.markdown-content > *:last-child {
+  margin-bottom: 0;
+}
+
+.markdown-content table {
+  width: 100%;
+  margin-bottom: 1rem;
+  border-collapse: collapse;
+}
+
+.markdown-content th,
+.markdown-content td {
+  border: 1px solid #dee2e6;
+  padding: 0.5rem;
+}
+
+.markdown-content-dark th,
+.markdown-content-dark td {
+  border-color: rgba(255, 255, 255, 0.25);
+}
+
+.markdown-content thead {
+  background-color: #f8f9fa;
+}
+
+.markdown-content-dark thead {
+  background-color: rgba(255, 255, 255, 0.15);
 }
 
 /* Home page hero */

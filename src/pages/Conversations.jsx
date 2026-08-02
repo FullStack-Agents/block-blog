@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Container, Card, Spinner, Alert, Form, InputGroup, Pagination } from 'react-bootstrap'
 
+import MarkdownRenderer from '../components/MarkdownRenderer'
 import { getApiBaseUrl } from '../utils/api'
 
 /**
@@ -112,12 +113,16 @@ export default function Conversations() {
             <Card.Subtitle className="mb-2 text-muted text-uppercase small">
               Question
             </Card.Subtitle>
-            <Card.Title className="mb-3">{c.question}</Card.Title>
+            <div className="mb-3">
+              <MarkdownRenderer content={c.question} />
+            </div>
 
             <Card.Subtitle className="mb-2 text-muted text-uppercase small">
               Answer
             </Card.Subtitle>
-            <Card.Text style={{ whiteSpace: 'pre-wrap' }}>{c.answer}</Card.Text>
+            <Card.Text>
+              <MarkdownRenderer content={c.answer} />
+            </Card.Text>
 
             <Card.Footer className="text-muted mt-3">
               {new Date(c.timestamp).toLocaleString()}
