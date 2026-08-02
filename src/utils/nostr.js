@@ -159,8 +159,8 @@ export async function publishNip04DM({
 }
 
 /**
- * Poll relays for NIP-04 DMs addressed to the ephemeral pubkey.
- * Tries the primary relay first, then fallbacks.
+ * Poll all configured relays in parallel for NIP-04 DMs addressed to the
+ * ephemeral pubkey. Merges, deduplicates, and decrypts the results.
  *
  * @param {object} params
  * @param {string} params.publicKey - hex public key of recipient
@@ -169,6 +169,7 @@ export async function publishNip04DM({
  * @param {number} [params.timeout=8000] - ms to wait for EOSE
  * @param {number} [params.limit=100]
  * @param {number} [params.since=0] - only fetch events after this unix timestamp
+ * @returns {Promise<{messages: Array, stats: Object}>}
  */
 export async function pollForResponses({
   publicKey,
@@ -178,79 +179,95 @@ export async function pollForResponses({
   limit = 100,
   since = 0
 }) {
-  const errors = []
+  const urls = [relayUrl, ...FALLBACK_RELAYS]
+  const stats = {}
 
-  for (const url of [relayUrl, ...FALLBACK_RELAYS]) {
-    let relay
-    try {
-      relay = await Relay.connect(url)
+  const results = await Promise.all(
+    urls.map(async (url) => {
+      let relay
+      try {
+        relay = await Relay.connect(url)
 
-      const events = []
+        const events = []
 
-      await new Promise((resolve) => {
-        let settled = false
-        const done = () => {
-          if (settled) return
-          settled = true
-          clearTimeout(timer)
-          try { sub.close() } catch {}
-          resolve()
-        }
+        await new Promise((resolve) => {
+          let settled = false
+          const done = () => {
+            if (settled) return
+            settled = true
+            clearTimeout(timer)
+            try { sub.close() } catch {}
+            resolve()
+          }
 
-        const timer = setTimeout(done, timeout)
+          const timer = setTimeout(done, timeout)
 
-        const filter = {
-          kinds: [4],
-          '#p': [publicKey],
-          limit
-        }
-        if (since > 0) {
-          filter.since = since
-        }
+          const filter = {
+            kinds: [4],
+            '#p': [publicKey],
+            limit
+          }
+          if (since > 0) {
+            filter.since = since
+          }
 
-        const sub = relay.subscribe([filter], {
-          onevent: (ev) => {
-            if (ev.pubkey === publicKey) return // skip own events
-            events.push(ev)
-          },
-          oneose: done,
-          onclose: done
-        })
-      })
-
-      const messages = []
-      const decryptErrors = []
-
-      for (const ev of events) {
-        try {
-          const decrypted = await nip04.decrypt(privateKey, ev.pubkey, ev.content)
-          messages.push({
-            id: ev.id,
-            content: decrypted,
-            senderPubkey: ev.pubkey,
-            createdAt: ev.created_at
+          const sub = relay.subscribe([filter], {
+            onevent: (ev) => {
+              if (ev.pubkey === publicKey) return // skip own events
+              events.push(ev)
+            },
+            oneose: done,
+            onclose: done
           })
-        } catch (err) {
-          decryptErrors.push({ id: ev.id, error: err instanceof Error ? err.message : String(err) })
+        })
+
+        const messages = []
+        const decryptErrors = []
+
+        for (const ev of events) {
+          try {
+            const decrypted = await nip04.decrypt(privateKey, ev.pubkey, ev.content)
+            messages.push({
+              id: ev.id,
+              content: decrypted,
+              senderPubkey: ev.pubkey,
+              createdAt: ev.created_at
+            })
+          } catch (err) {
+            decryptErrors.push({ id: ev.id, error: err instanceof Error ? err.message : String(err) })
+          }
         }
-      }
 
-      if (decryptErrors.length > 0) {
-        console.warn(`pollForResponses decryption errors on ${url}:`, decryptErrors)
-      }
+        if (decryptErrors.length > 0) {
+          console.warn(`pollForResponses decryption errors on ${url}:`, decryptErrors)
+        }
 
-      messages.sort((a, b) => a.createdAt - b.createdAt)
-      relay.close()
-      return messages
-    } catch (err) {
-      console.warn(`pollForResponses failed on ${url}:`, err)
-      errors.push({ url, error: err instanceof Error ? err.message : String(err) })
-      if (relay) {
-        try { relay.close() } catch {}
+        stats[url] = { events: events.length, messages: messages.length }
+        relay.close()
+        return messages
+      } catch (err) {
+        console.warn(`pollForResponses failed on ${url}:`, err)
+        stats[url] = { error: err instanceof Error ? err.message : String(err) }
+        if (relay) {
+          try { relay.close() } catch {}
+        }
+        return []
       }
+    })
+  )
+
+  // Merge and deduplicate across all relays
+  const byId = new Map()
+  for (const batch of results) {
+    for (const msg of batch) {
+      byId.set(msg.id, msg)
     }
   }
 
-  console.error('pollForResponses all relays failed:', errors)
-  throw new Error(`Failed to poll relays. Last error: ${errors[errors.length - 1]?.error}`)
+  const messages = Array.from(byId.values())
+  messages.sort((a, b) => a.createdAt - b.createdAt)
+
+  console.log('pollForResponses stats:', stats, 'total unique messages:', messages.length)
+
+  return { messages, stats }
 }

@@ -63,18 +63,22 @@ export default function Ask() {
     }
   }, [])
 
+  const [relayPollStats, setRelayPollStats] = useState({})
+
   useEffect(() => {
     if (!keypair) return
 
     const poll = async () => {
       try {
-        const since = Math.floor((Date.now() - 5 * 60 * 1000) / 1000) // last 5 minutes
-        const responses = await pollForResponses({
+        const since = Math.floor((Date.now() - 15 * 60 * 1000) / 1000) // last 15 minutes
+        const { messages: responses, stats } = await pollForResponses({
           publicKey: keypair.publicKey,
           privateKey: keypair.privateKey,
           timeout: 8000,
           since
         })
+
+        setRelayPollStats(stats)
 
         if (responses.length === 0) return
 
@@ -179,6 +183,22 @@ export default function Ask() {
             {Object.entries(relayStatus).map(([url, ok]) => (
               <li key={url}>
                 {url}: {ok ? '✅ reachable' : '❌ unreachable'}
+              </li>
+            ))}
+          </ul>
+        </Alert>
+      )}
+
+      {Object.keys(relayPollStats).length > 0 && (
+        <Alert variant="light" className="py-2">
+          <strong>Last poll stats:</strong>
+          <ul className="mb-0 mt-1">
+            {Object.entries(relayPollStats).map(([url, stat]) => (
+              <li key={url}>
+                {url}: {' '}
+                {stat.error
+                  ? `❌ ${stat.error}`
+                  : `${stat.events} events, ${stat.messages} messages`}
               </li>
             ))}
           </ul>
