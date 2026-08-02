@@ -102,58 +102,56 @@ export async function publishNip04DM({
  * @param {string} params.publicKey - hex public key of recipient
  * @param {string} params.privateKey - hex private key for decryption
  * @param {string} [params.relayUrl=DEFAULT_RELAY]
- * @param {number} [params.timeout=5000] - ms to wait for EOSE
+ * @param {number} [params.timeout=8000] - ms to wait for EOSE
  * @param {number} [params.limit=100]
+ * @param {number} [params.since=0] - only fetch events after this unix timestamp
  */
 export async function pollForResponses({
   publicKey,
   privateKey,
   relayUrl = DEFAULT_RELAY,
-  timeout = 5000,
-  limit = 100
+  timeout = 8000,
+  limit = 100,
+  since = 0
 }) {
   const relay = await Relay.connect(relayUrl)
 
   try {
     const events = []
 
-    await new Promise((resolve, reject) => {
-      const timer = setTimeout(() => {
-        sub.close()
+    await new Promise((resolve) => {
+      let settled = false
+      const done = () => {
+        if (settled) return
+        settled = true
+        clearTimeout(timer)
+        try { sub.close() } catch {}
         resolve()
-      }, timeout)
+      }
 
-      const sub = relay.subscribe(
-        [
-          {
-            kinds: [4],
-            '#p': [publicKey],
-            limit
-          }
-        ],
-        {
-          onevent: (ev) => {
-            if (ev.pubkey === publicKey) return // skip own events
-            events.push(ev)
-          },
-          oneose: () => {
-            clearTimeout(timer)
-            sub.close()
-            resolve()
-          },
-          onclose: (reason) => {
-            clearTimeout(timer)
-            if (reason) {
-              reject(new Error(`Subscription closed: ${reason}`))
-            } else {
-              resolve()
-            }
-          }
-        }
-      )
+      const timer = setTimeout(done, timeout)
+
+      const filter = {
+        kinds: [4],
+        '#p': [publicKey],
+        limit
+      }
+      if (since > 0) {
+        filter.since = since
+      }
+
+      const sub = relay.subscribe([filter], {
+        onevent: (ev) => {
+          if (ev.pubkey === publicKey) return // skip own events
+          events.push(ev)
+        },
+        oneose: done,
+        onclose: done
+      })
     })
 
     const messages = []
+    const errors = []
 
     for (const ev of events) {
       try {
@@ -164,9 +162,13 @@ export async function pollForResponses({
           senderPubkey: ev.pubkey,
           createdAt: ev.created_at
         })
-      } catch {
-        // ignore decryption failures
+      } catch (err) {
+        errors.push({ id: ev.id, error: err instanceof Error ? err.message : String(err) })
       }
+    }
+
+    if (errors.length > 0) {
+      console.warn('pollForResponses decryption errors:', errors)
     }
 
     // sort newest last

@@ -50,10 +50,12 @@ export default function Ask() {
 
     const poll = async () => {
       try {
+        const since = Math.floor((Date.now() - 5 * 60 * 1000) / 1000) // last 5 minutes
         const responses = await pollForResponses({
           publicKey: keypair.publicKey,
           privateKey: keypair.privateKey,
-          timeout: 3000
+          timeout: 8000,
+          since
         })
 
         if (responses.length === 0) return
@@ -72,8 +74,8 @@ export default function Ask() {
           merged.sort((a, b) => a.timestamp - b.timestamp)
           return merged
         })
-      } catch {
-        // polling errors are non-fatal
+      } catch (err) {
+        console.warn('Polling error:', err)
       }
     }
 
