@@ -38,7 +38,7 @@ export function loadEphemeralKeypair() {
 
   if (!privkey) {
     const sk = generateSecretKey()
-    privkey = Buffer.from(sk).toString('hex')
+    privkey = bytesToHex(sk)
     sessionStorage.setItem('tech-support-privkey', privkey)
   }
 
