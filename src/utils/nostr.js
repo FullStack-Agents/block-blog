@@ -7,13 +7,24 @@
 
 import { generateSecretKey, getPublicKey, nip04 } from 'nostr-tools'
 import { finalizeEvent } from 'nostr-tools/pure'
-import { Relay } from 'nostr-tools/relay'
+import { Relay, useWebSocketImplementation } from 'nostr-tools/relay'
 
 /** Target relay for DMs and polling. */
 export const DEFAULT_RELAY = 'wss://nostr.fullstackcash.net'
 
+/** Fallback relays to try if the default fails. */
+export const FALLBACK_RELAYS = [
+  'wss://nos.lol',
+  'wss://relay.primal.net'
+]
+
 /** Block's public key (hex) — the support bot. */
 export const BLOCK_PUBKEY = 'a871a5978a666e72e7bfb0b221dc1df1fbb6499c77b29da6d692c3bbb3e17177'
+
+// Ensure nostr-tools uses the browser's native WebSocket.
+if (typeof window !== 'undefined' && window.WebSocket) {
+  useWebSocketImplementation(window.WebSocket)
+}
 
 function bytesToHex(bytes) {
   return Array.from(bytes)
@@ -57,7 +68,48 @@ export function clearEphemeralKeypair() {
 }
 
 /**
- * Publish a NIP-04 DM to a relay.
+ * Test whether a raw WebSocket connection can be established to a relay.
+ * Returns a promise that resolves with true/false.
+ */
+export async function testRelayConnection(relayUrl = DEFAULT_RELAY, timeout = 5000) {
+  return new Promise((resolve) => {
+    let settled = false
+    const done = (result) => {
+      if (settled) return
+      settled = true
+      try { ws.close() } catch {}
+      resolve(result)
+    }
+
+    let ws
+    try {
+      ws = new window.WebSocket(relayUrl)
+    } catch (err) {
+      console.error('Failed to create WebSocket for', relayUrl, err)
+      done(false)
+      return
+    }
+
+    const timer = setTimeout(() => done(false), timeout)
+
+    ws.onopen = () => {
+      clearTimeout(timer)
+      done(true)
+    }
+    ws.onerror = (err) => {
+      clearTimeout(timer)
+      console.error('WebSocket error for', relayUrl, err)
+      done(false)
+    }
+    ws.onclose = () => {
+      clearTimeout(timer)
+      done(false)
+    }
+  })
+}
+
+/**
+ * Publish a NIP-04 DM to a relay, falling back to known relays if needed.
  *
  * @param {object} params
  * @param {string} params.privateKey - hex private key
@@ -85,32 +137,30 @@ export async function publishNip04DM({
   const sk = hexToBytes(privateKey)
   const signedEvent = finalizeEvent(eventTemplate, sk)
 
-  const relay = await Relay.connect(relayUrl)
-  try {
-    const encrypted = await nip04.encrypt(privateKey, recipientPubkey, content)
-
-    const eventTemplate = {
-      kind: 4,
-      created_at: Math.floor(Date.now() / 1000),
-      tags: [['p', recipientPubkey]],
-      content: encrypted
+  const errors = []
+  for (const url of [relayUrl, ...FALLBACK_RELAYS]) {
+    let relay
+    try {
+      relay = await Relay.connect(url)
+      await relay.publish(signedEvent)
+      relay.close()
+      return signedEvent
+    } catch (err) {
+      console.warn(`publishNip04DM failed on ${url}:`, err)
+      errors.push({ url, error: err instanceof Error ? err.message : String(err) })
+      if (relay) {
+        try { relay.close() } catch {}
+      }
     }
-
-    const sk = hexToBytes(privateKey)
-    const signedEvent = finalizeEvent(eventTemplate, sk)
-
-    await relay.publish(signedEvent)
-    return signedEvent
-  } catch (err) {
-    console.error('publishNip04DM failed:', err)
-    throw err
-  } finally {
-    relay.close()
   }
+
+  console.error('publishNip04DM all relays failed:', errors)
+  throw new Error(`Failed to publish DM to any relay. Last error: ${errors[errors.length - 1]?.error}`)
 }
 
 /**
- * Poll a relay for NIP-04 DMs addressed to the ephemeral pubkey.
+ * Poll relays for NIP-04 DMs addressed to the ephemeral pubkey.
+ * Tries the primary relay first, then fallbacks.
  *
  * @param {object} params
  * @param {string} params.publicKey - hex public key of recipient
@@ -128,68 +178,79 @@ export async function pollForResponses({
   limit = 100,
   since = 0
 }) {
-  const relay = await Relay.connect(relayUrl)
+  const errors = []
 
-  try {
-    const events = []
+  for (const url of [relayUrl, ...FALLBACK_RELAYS]) {
+    let relay
+    try {
+      relay = await Relay.connect(url)
 
-    await new Promise((resolve) => {
-      let settled = false
-      const done = () => {
-        if (settled) return
-        settled = true
-        clearTimeout(timer)
-        try { sub.close() } catch {}
-        resolve()
-      }
+      const events = []
 
-      const timer = setTimeout(done, timeout)
+      await new Promise((resolve) => {
+        let settled = false
+        const done = () => {
+          if (settled) return
+          settled = true
+          clearTimeout(timer)
+          try { sub.close() } catch {}
+          resolve()
+        }
 
-      const filter = {
-        kinds: [4],
-        '#p': [publicKey],
-        limit
-      }
-      if (since > 0) {
-        filter.since = since
-      }
+        const timer = setTimeout(done, timeout)
 
-      const sub = relay.subscribe([filter], {
-        onevent: (ev) => {
-          if (ev.pubkey === publicKey) return // skip own events
-          events.push(ev)
-        },
-        oneose: done,
-        onclose: done
-      })
-    })
+        const filter = {
+          kinds: [4],
+          '#p': [publicKey],
+          limit
+        }
+        if (since > 0) {
+          filter.since = since
+        }
 
-    const messages = []
-    const errors = []
-
-    for (const ev of events) {
-      try {
-        const decrypted = await nip04.decrypt(privateKey, ev.pubkey, ev.content)
-        messages.push({
-          id: ev.id,
-          content: decrypted,
-          senderPubkey: ev.pubkey,
-          createdAt: ev.created_at
+        const sub = relay.subscribe([filter], {
+          onevent: (ev) => {
+            if (ev.pubkey === publicKey) return // skip own events
+            events.push(ev)
+          },
+          oneose: done,
+          onclose: done
         })
-      } catch (err) {
-        errors.push({ id: ev.id, error: err instanceof Error ? err.message : String(err) })
+      })
+
+      const messages = []
+      const decryptErrors = []
+
+      for (const ev of events) {
+        try {
+          const decrypted = await nip04.decrypt(privateKey, ev.pubkey, ev.content)
+          messages.push({
+            id: ev.id,
+            content: decrypted,
+            senderPubkey: ev.pubkey,
+            createdAt: ev.created_at
+          })
+        } catch (err) {
+          decryptErrors.push({ id: ev.id, error: err instanceof Error ? err.message : String(err) })
+        }
+      }
+
+      if (decryptErrors.length > 0) {
+        console.warn(`pollForResponses decryption errors on ${url}:`, decryptErrors)
+      }
+
+      messages.sort((a, b) => a.createdAt - b.createdAt)
+      relay.close()
+      return messages
+    } catch (err) {
+      console.warn(`pollForResponses failed on ${url}:`, err)
+      errors.push({ url, error: err instanceof Error ? err.message : String(err) })
+      if (relay) {
+        try { relay.close() } catch {}
       }
     }
-
-    if (errors.length > 0) {
-      console.warn('pollForResponses decryption errors:', errors)
-    }
-
-    // sort newest last
-    messages.sort((a, b) => a.createdAt - b.createdAt)
-
-    return messages
-  } finally {
-    relay.close()
   }
+
+  console.error('pollForResponses all relays failed:', errors)
+  throw new Error(`Failed to poll relays. Last error: ${errors[errors.length - 1]?.error}`)
 }

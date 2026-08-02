@@ -5,7 +5,10 @@ import {
   clearEphemeralKeypair,
   publishNip04DM,
   pollForResponses,
-  BLOCK_PUBKEY
+  testRelayConnection,
+  BLOCK_PUBKEY,
+  DEFAULT_RELAY,
+  FALLBACK_RELAYS
 } from '../utils/nostr'
 
 const CONVERSATION_KEY = 'tech-support-conversation'
@@ -23,6 +26,7 @@ export default function Ask() {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
   const [info, setInfo] = useState(null)
+  const [relayStatus, setRelayStatus] = useState({})
   const pollTimerRef = useRef(null)
 
   useEffect(() => {
@@ -37,6 +41,20 @@ export default function Ask() {
         localStorage.removeItem(CONVERSATION_KEY)
       }
     }
+
+    // Test raw WebSocket connectivity to each relay.
+    ;(async () => {
+      const status = {}
+      for (const url of [DEFAULT_RELAY, ...FALLBACK_RELAYS]) {
+        try {
+          status[url] = await testRelayConnection(url, 4000)
+        } catch {
+          status[url] = false
+        }
+      }
+      console.log('Relay raw WebSocket status:', status)
+      setRelayStatus(status)
+    })()
 
     return () => {
       if (pollTimerRef.current) {
@@ -153,6 +171,19 @@ export default function Ask() {
 
       {error && <Alert variant="danger">{error}</Alert>}
       {info && <Alert variant="info">{info}</Alert>}
+
+      {Object.keys(relayStatus).length > 0 && (
+        <Alert variant="secondary" className="py-2">
+          <strong>Relay connectivity (raw WebSocket):</strong>
+          <ul className="mb-0 mt-1">
+            {Object.entries(relayStatus).map(([url, ok]) => (
+              <li key={url}>
+                {url}: {ok ? '✅ reachable' : '❌ unreachable'}
+              </li>
+            ))}
+          </ul>
+        </Alert>
+      )}
 
       <Card className="mb-4">
         <Card.Body
