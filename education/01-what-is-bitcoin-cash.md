@@ -90,6 +90,7 @@ A few recommended wallets to get you started:
 - **Selene wallet** at [selene.cash](https://selene.cash)
 - **Bitcoin.com wallet** at [Bitcoin.com](https://www.bitcoin.com)
 - **Open source web wallet** at [wallet.psfoundation.info](https://wallet.psfoundation.info)
+- **Electron Cash wallet** at [electroncash.org](https://electroncash.org/)
 
 The choice of wallet depends on how much control you want. The general rule is simple: **not your keys, not your coins.**
 
