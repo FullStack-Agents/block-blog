@@ -108,17 +108,11 @@ To receive Bitcoin Cash, you share a **Bitcoin Cash address**. These use the mod
 
 ### Acquiring your first Bitcoin Cash
 
-There are several ways for a new user to get Bitcoin Cash:
+There are several popular ways for a new user to get their first Bitcoin Cash:
 
-- **Free faucets** — services that give away small amounts of BCH to new users.
-- **Exchanges** — buy BCH with fiat currency on platforms like Coinbase.
-- **Peer-to-peer** — buy directly from a friend who already owns BCH.
-- **Local marketplaces** — find a seller in your area for an in-person cash trade (e.g., localbitcoincash.org).
-- **Accepting payment** — sell a product or service for BCH.
-- **Bitcoin Cash ATMs** — purchase BCH with cash at a physical kiosk.
-
-![A Bitcoin Cash faucet](/block-blog/images/mastering-bitcoin-cash/msbt_01_faucet_1.png)
-
+- **Centralized exchanges (CEXs)** — [Coinbase](https://www.coinbase.com), [Kraken](https://www.kraken.com), and [Binance](https://www.binance.com) are common centralized exchanges where you can buy BCH. This typically involves going through a KYC (identity) screening and connecting a debit card or bank account.
+- **Internet payment services** — [PayPal](https://www.paypal.com) is a widely available option that lets you purchase BCH. There can be a delay of several days, but it's an easy way to get started.
+- **Decentralized exchanges (DEXs)** — [THORChain](https://swap.thorchain.org/) is a decentralized exchange that lets you convert many other types of crypto into BCH, without needing to go through a centralized intermediary.
 ### Sending and receiving
 
 Sending Bitcoin Cash is as simple as scanning a QR code or pasting an address. When you send a payment, your wallet constructs a transaction that assigns value to the recipient's address, signs it with your private key, and broadcasts it to the peer-to-peer network. In less than a second, well-connected nodes across the network receive the transaction.
