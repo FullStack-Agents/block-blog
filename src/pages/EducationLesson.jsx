@@ -4,6 +4,7 @@ import { getLessonBySlug } from '../utils/lessons'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 import VideoEmbed from '../components/VideoEmbed'
+import SourceAttribution from '../components/SourceAttribution'
 
 export default function EducationLesson() {
   const { slug } = useParams()
@@ -67,6 +68,9 @@ export default function EducationLesson() {
           </ReactMarkdown>
         </div>
       </article>
+
+      {/* Source attribution footer (when lesson is adapted from a source) */}
+      <SourceAttribution source={lesson.source} />
     </Container>
   )
 }

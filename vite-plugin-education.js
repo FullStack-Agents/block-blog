@@ -36,6 +36,7 @@ export default function educationPlugin() {
             date: data.date || null,
             order: data.order != null ? data.order : Number.MAX_SAFE_INTEGER,
             description: data.description || '',
+            source: data.source || null,
             video: data.video || null,
             tags: data.tags || [],
             body: content,
