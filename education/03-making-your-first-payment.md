@@ -37,4 +37,4 @@ code or pasting an address. Here's the general flow.
 That's it! Once you've sent and received a couple of transactions, the basics
 are behind you.
 
-Return to [BCH Education](/education) for more lessons.
+Return to [BCH Education](#/education) for more lessons.

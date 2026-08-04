@@ -37,4 +37,4 @@ that prove ownership of coins on the blockchain.
 Self-custody is a core value of Bitcoin Cash. It puts financial sovereignty back
 in your hands.
 
-Continue to the next lesson in [BCH Education](/education).
+Continue to the next lesson in [BCH Education](#/education).

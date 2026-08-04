@@ -136,4 +136,4 @@ Bitcoin Cash combines several key innovations into one system:
 
 It represents the culmination of decades of research in cryptography and distributed systems — and it is, above all, money you can actually use. Now that you understand what Bitcoin Cash is, you're ready for the next lesson: setting up a wallet and taking custody of your own keys.
 
-Ready for the next lesson? Head back to [BCH Education](/education) to continue.
+Ready for the next lesson? Head back to [BCH Education](#/education) to continue.
