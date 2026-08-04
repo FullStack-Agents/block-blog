@@ -85,7 +85,11 @@ To use Bitcoin Cash, all you need is a wallet. Wallets come in several forms:
 - **Lightweight clients** store your wallet but rely on third-party servers for access to the network. They are easier to use but introduce some counterparty trust.
 - **Web clients** store your wallet on a server owned by a third party. They are the easiest to set up but carry the most counterparty risk — if the service is compromised, funds can be lost.
 
-![Bitcoin.com's wallets](/block-blog/images/mastering-bitcoin-cash/msbt_01_wallets.png)
+A few recommended wallets to get you started:
+
+- **Selene wallet** at [selene.cash](https://selene.cash)
+- **Bitcoin.com wallet** at [Bitcoin.com](https://www.bitcoin.com)
+- **Open source web wallet** at [wallet.psfoundation.info](https://wallet.psfoundation.info)
 
 The choice of wallet depends on how much control you want. The general rule is simple: **not your keys, not your coins.**
 
