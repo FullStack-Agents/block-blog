@@ -3,23 +3,42 @@ import { Container } from 'react-bootstrap'
 
 const SOURCES = {
   'mastering-bitcoin-cash': {
-    text:
-      'The content on this page is adapted from Mastering Bitcoin Cash, which is adapted from Mastering Bitcoin by Andreas M. Antonopoulos First Edition which is licensed under Creative Commons Attribution-ShareAlike.',
+    text: 'The content on this page is adapted from ', 
     links: [
       {
         label: 'Mastering Bitcoin Cash',
         url: 'https://github.com/Bitcoin-com/mastering-bitcoin-cash',
       },
+    ],
+    mid: ', which is adapted from ',
+    links2: [
       {
         label: 'Mastering Bitcoin',
         url: 'https://github.com/bitcoinbook/bitcoinbook',
       },
+    ],
+    end: ' by Andreas M. Antonopoulos First Edition which is licensed under ',
+    links3: [
       {
         label: 'Creative Commons Attribution-ShareAlike',
         url: 'https://creativecommons.org/licenses/by-sa/4.0/',
       },
     ],
+    tail: '.',
   },
+}
+
+function renderLinks(links, keyPrefix) {
+  return links.map((link) => (
+    <a
+      key={`${keyPrefix}-${link.url}`}
+      href={link.url}
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      {link.label}
+    </a>
+  ))
 }
 
 /**
@@ -34,18 +53,15 @@ export default function SourceAttribution({ source }) {
     <Container className="py-4">
       <hr className="mb-4" />
       <footer className="text-muted small">
-        <p className="mb-2">{attribution.text}</p>
-        {attribution.links.length > 0 && (
-          <ul className="list-inline mb-0">
-            {attribution.links.map((link) => (
-              <li key={link.url} className="list-inline-item me-3">
-                <a href={link.url} target="_blank" rel="noopener noreferrer">
-                  {link.label}
-                </a>
-              </li>
-            ))}
-          </ul>
-        )}
+        <p className="mb-0">
+          {attribution.text}
+          {renderLinks(attribution.links, 'a')}
+          {attribution.mid}
+          {renderLinks(attribution.links2, 'b')}
+          {attribution.end}
+          {renderLinks(attribution.links3, 'c')}
+          {attribution.tail}
+        </p>
       </footer>
     </Container>
   )
