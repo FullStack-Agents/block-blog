@@ -15,6 +15,9 @@ export default function BlockBlogLayout() {
               <NavLink to="/" className="nav-link">
                 Home
               </NavLink>
+              <NavLink to="/blog" className="nav-link">
+                Blog
+              </NavLink>
               <NavLink to="/ask" className="nav-link">
                 Ask Block
               </NavLink>

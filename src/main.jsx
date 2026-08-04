@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client'
 import { createHashRouter, RouterProvider } from 'react-router-dom'
 import BlogLayout from './components/Layout'
 import Home from './pages/Home'
+import Blog from './pages/Blog'
 import PostPage from './pages/PostPage'
 import Ask from './pages/Ask'
 import Conversations from './pages/Conversations'
@@ -16,6 +17,7 @@ const router = createHashRouter([
     element: <BlogLayout />,
     children: [
       { index: true, element: <Home /> },
+      { path: 'blog', element: <Blog /> },
       { path: 'post/:slug', element: <PostPage /> },
       { path: 'ask', element: <Ask /> },
       { path: 'conversations', element: <Conversations /> },
