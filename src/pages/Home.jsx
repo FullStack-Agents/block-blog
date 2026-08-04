@@ -29,6 +29,15 @@ const SECTIONS = [
     cta: 'Browse the archive',
     variant: 'info',
   },
+  {
+    to: '/education',
+    title: 'BCH Education',
+    icon: '🎓',
+    description:
+      'A series of lessons to learn about Bitcoin Cash — what it is, how it works, and how to use it, with videos and markdown guides.',
+    cta: 'Start learning',
+    variant: 'warning',
+  },
 ]
 
 export default function Home() {
@@ -48,9 +57,9 @@ export default function Home() {
         <div className="text-center mx-auto mb-4" style={{ maxWidth: '42rem' }}>
           <h2 className="h4 mb-3">Welcome</h2>
           <p className="text-muted">
-            Explore fresh articles, ask questions and get answers from Block in
-            real time, or dig through the archive of past conversations. Pick a
-            section to get started.
+            Explore fresh articles, learn about Bitcoin Cash with guided lessons,
+            ask questions and get answers from Block in real time, or dig through
+            the archive of past conversations. Pick a section to get started.
           </p>
         </div>
 

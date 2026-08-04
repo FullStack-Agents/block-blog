@@ -24,6 +24,9 @@ export default function BlockBlogLayout() {
               <NavLink to="/conversations" className="nav-link">
                 Q&A Archive
               </NavLink>
+              <NavLink to="/education" className="nav-link">
+                BCH Education
+              </NavLink>
             </Nav>
           </Navbar.Collapse>
         </Container>

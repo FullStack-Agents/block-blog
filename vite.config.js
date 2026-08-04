@@ -2,6 +2,7 @@ import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import { nodePolyfills } from 'vite-plugin-node-polyfills'
 import blogPosts from './vite-plugin-blog-posts.js'
+import educationPlugin from './vite-plugin-education.js'
 
 export default defineConfig({
   plugins: [
@@ -9,7 +10,8 @@ export default defineConfig({
     nodePolyfills({
       include: ['buffer']
     }),
-    blogPosts()
+    blogPosts(),
+    educationPlugin()
   ],
   base: '/block-blog/',
   build: {
