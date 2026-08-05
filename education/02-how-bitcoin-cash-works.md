@@ -4,7 +4,7 @@ date: "2026-08-05"
 order: 2
 description: "How value moves on Bitcoin Cash — the lifecycle of a transaction from your wallet to the blockchain, and how mining, blocks, and confirmations keep the ledger secure."
 source: "mastering-bitcoin-cash"
-video: "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+video: "https://youtu.be/YBWd602Lf58"
 tags: ["Bitcoin Cash", "transactions", "blockchain", "mining", "blocks"]
 ---
 
