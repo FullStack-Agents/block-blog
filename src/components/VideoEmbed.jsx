@@ -31,16 +31,16 @@ function toEmbedSrc(url) {
 /**
  * Renders an embedded video (iframe) for a given URL. Returns null if the
  * URL cannot be embedded (e.g. a plain link).
+ *
+ * Uses Bootstrap's `.ratio ratio-16x9` class for a responsive 16:9 container
+ * (the iframe is absolutely positioned to fill it).
  */
-export default function VideoEmbed({ url, title, ratio = '16/9' }) {
+export default function VideoEmbed({ url, title }) {
   const src = toEmbedSrc(url)
   if (!src) return null
 
   return (
-    <div
-      className="ratio ratio-16x9 mb-4 video-embed"
-      style={{ ['--bs-aspect-ratio']: ratio }}
-    >
+    <div className="ratio ratio-16x9 mb-4 video-embed">
       <iframe
         src={src}
         title={title || 'Embedded video'}
