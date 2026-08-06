@@ -140,6 +140,11 @@ Multisig eliminates single points of failure and is a powerful security tool. On
 
 ![An example of a simple paper wallet](/block-blog/images/mastering-bitcoin-cash/msbt_04_paper_wallet.png)
 
+You can generate your own paper wallets with these free tools:
+
+- [Bitcoin.com Paper Wallet](https://paperwallet.bitcoin.com/)
+- [PSF Paper Wallet](https://paperwallet.psfoundation.info/)
+
 Cold storage maximizes security but makes spending less convenient — you typically move funds to a "hot" wallet (like a mobile wallet) when you want to spend. A common strategy is to keep most of your savings in cold storage and only a small spending amount in a hot wallet.
 
 ## Wrap up
