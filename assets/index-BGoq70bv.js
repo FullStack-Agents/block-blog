@@ -1429,7 +1429,7 @@ Ownership of Bitcoin Cash comes down to a few simple ideas:
 The golden rules: **never share your private keys or seed phrase**, **back them up offline**, and **use a fresh address for each payment** to protect your privacy. Get these basics right and you're well on your way to safely using Bitcoin Cash.
 
 Ready for the next lesson? Head back to [BCH Education](#/education) to continue.
-`},{slug:"04-transactions",title:"Transactions",date:"2026-08-06",order:4,description:"How value moves on the Bitcoin Cash network — the anatomy of a transaction, UTXOs, inputs and outputs, fees, and the scripts that unlock your money.",source:"mastering-bitcoin-cash",video:"https://youtu.be/dQw4w9WgXcQ",tags:["Bitcoin Cash","transactions","UTXO","scripts","fees"],body:`
+`},{slug:"04-transactions",title:"Transactions",date:"2026-08-06",order:4,description:"How value moves on the Bitcoin Cash network — the anatomy of a transaction, UTXOs, inputs and outputs, fees, and the scripts that unlock your money.",source:"mastering-bitcoin-cash",video:"https://youtu.be/vUJV5C0rukk",tags:["Bitcoin Cash","transactions","UTXO","scripts","fees"],body:`
 # Transactions
 
 Transactions are the heart of the Bitcoin Cash system. Everything else — the network, the miners, the blockchain — exists to make sure transactions can be created, broadcast, validated, and recorded in the global ledger. A **transaction** is simply a data structure that encodes the transfer of value between participants. Each one is a permanent public entry in Bitcoin Cash's blockchain.
@@ -1604,7 +1604,7 @@ Let's summarize what makes a Bitcoin Cash transaction work:
 Transactions are what turn Bitcoin Cash into *programmable money* — a global, open ledger where value can move from anyone to anyone, secured by cryptography rather than trust.
 
 Ready for the next lesson? Head back to [BCH Education](#/education) to continue.
-`},{slug:"05-the-bitcoin-cash-network",title:"The Bitcoin Cash Network",date:"2026-08-06",order:5,description:"How the Bitcoin Cash network actually works — the peer-to-peer mesh of equal nodes, full nodes vs. lightweight SPV wallets, network discovery and the handshake, and the mempool.",source:"mastering-bitcoin-cash",video:"https://youtu.be/vUJV5C0rukk",tags:["Bitcoin Cash","network","P2P","nodes","SPV"],body:`
+`},{slug:"05-the-bitcoin-cash-network",title:"The Bitcoin Cash Network",date:"2026-08-06",order:5,description:"How the Bitcoin Cash network actually works — the peer-to-peer mesh of equal nodes, full nodes vs. lightweight SPV wallets, network discovery and the handshake, and the mempool.",source:"mastering-bitcoin-cash",video:"https://youtu.be/igEVUm1nBLA",tags:["Bitcoin Cash","network","P2P","nodes","SPV"],body:`
 # The Bitcoin Cash Network
 
 Bitcoin Cash is not a website or a service that you connect to — it's a **peer-to-peer (P2P) network**: a global mesh of independent computers that talk to each other directly. When you send or receive BCH, no company, server, or central authority carries your money. Instead, your transaction is handed from node to node across the network until every participant has seen it.
