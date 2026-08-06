@@ -4,7 +4,7 @@ date: "2026-08-06"
 order: 3
 description: "How ownership of Bitcoin Cash works — the private and public keys that control funds, the addresses you share to receive payments, and the wallets that keep it all safe."
 source: "mastering-bitcoin-cash"
-video: "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+video: "https://youtu.be/Q83x4EUKaxg"
 tags: ["Bitcoin Cash", "keys", "addresses", "wallets", "security"]
 ---
 
