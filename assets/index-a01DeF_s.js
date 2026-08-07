@@ -1643,17 +1643,17 @@ The Bitcoin Cash network recognizes a handful of standard transaction types:
 
 To spend it, the recipient provides their public key and a valid signature from the matching private key. The script checks that the public key hashes to the locked address *and* that the signature is valid.
 
-### Multi-signature (multisig)
-
-A **multi-signature** script requires a certain number of signatures to release the funds. In an **M-of-N** scheme, N public keys are recorded and at least M of them must sign. For example, a **2-of-3** arrangement might have a buyer, seller, and arbitrator — any two can unlock an escrow. Standard multisig scripts support up to **15** public keys.
-
-Multisig is powerful, but a raw multisig script is long and cumbersome to send around. In practice it's almost always wrapped in a P2SH address (see below) so the payer only deals with a short address.
-
 ### OP_RETURN (data output)
 
 The blockchain can carry more than just payments. **OP_RETURN** lets you attach a small amount of arbitrary data to a transaction — up to **220 bytes** (raised from 80 bytes in the May 2018 network upgrade). Applications often use it to record a hash as proof-of-existence of a file, or to add identifying prefixes for token protocols and metadata.
 
 Crucially, an OP_RETURN output is **provably unspendable**. It's marked as data, not as value, so it's never added to the UTXO set and never bloats the set of spendable outputs. It's usually given a zero BCH amount, because any BCH assigned to it would be lost forever.
+
+### Multi-signature (multisig)
+
+A **multi-signature** script requires a certain number of signatures to release the funds. In an **M-of-N** scheme, N public keys are recorded and at least M of them must sign. For example, a **2-of-3** arrangement might have a buyer, seller, and arbitrator — any two can unlock an escrow. Standard multisig scripts support up to **15** public keys.
+
+Multisig is powerful, but a raw multisig script is long and cumbersome to send around. In practice it's almost always wrapped in a P2SH address (see below) so the payer only deals with a short address.
 
 ### Pay-to-Script-Hash (P2SH)
 
