@@ -3,6 +3,7 @@ title: "The Bitcoin Cash Network"
 date: "2026-08-06"
 order: 5
 description: "How the Bitcoin Cash network actually works — the peer-to-peer mesh of equal nodes, full nodes vs. lightweight SPV wallets, network discovery and the handshake, and the mempool."
+section: "mastering-bitcoin-cash"
 source: "mastering-bitcoin-cash"
 video: "https://youtu.be/igEVUm1nBLA"
 tags: ["Bitcoin Cash", "network", "P2P", "nodes", "SPV"]

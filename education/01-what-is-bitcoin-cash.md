@@ -3,6 +3,7 @@ title: "What Is Bitcoin Cash?"
 date: "2026-08-04"
 order: 1
 description: "An introduction to Bitcoin Cash — a peer-to-peer electronic cash system designed for everyday payments, its history, how it works, and how to get started."
+section: "mastering-bitcoin-cash"
 source: "mastering-bitcoin-cash"
 video: "https://youtube.com/shorts/Z5mi1KOpXpk"
 tags: ["Bitcoin Cash", "basics", "intro", "history", "mining"]

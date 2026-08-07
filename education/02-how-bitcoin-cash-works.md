@@ -3,6 +3,7 @@ title: "How Bitcoin Cash Works"
 date: "2026-08-05"
 order: 2
 description: "How value moves on Bitcoin Cash — the lifecycle of a transaction from your wallet to the blockchain, and how mining, blocks, and confirmations keep the ledger secure."
+section: "mastering-bitcoin-cash"
 source: "mastering-bitcoin-cash"
 video: "https://youtu.be/YBWd602Lf58"
 tags: ["Bitcoin Cash", "transactions", "blockchain", "mining", "blocks"]

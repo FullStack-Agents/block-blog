@@ -3,6 +3,7 @@ title: "Transactions"
 date: "2026-08-06"
 order: 4
 description: "How value moves on the Bitcoin Cash network — the anatomy of a transaction, UTXOs, inputs and outputs, fees, and the scripts that unlock your money."
+section: "mastering-bitcoin-cash"
 source: "mastering-bitcoin-cash"
 video: "https://youtu.be/vUJV5C0rukk"
 tags: ["Bitcoin Cash", "transactions", "UTXO", "scripts", "fees"]
