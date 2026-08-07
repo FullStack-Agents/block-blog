@@ -1672,11 +1672,15 @@ P2SH addresses start with **\`p\`** in modern CashAddr format (or \`3\` in the o
 
 ## Transactions today: signatures and tokens
 
-Two more things are worth knowing about modern Bitcoin Cash transactions:
+Three more things are worth knowing about modern Bitcoin Cash transactions:
 
 - **Schnorr signatures.** Bitcoin Cash originally used the older **ECDSA** signature algorithm. Since the **May 2019** network upgrade it also accepts **Schnorr** signatures, which are more efficient, allow multiple keys to be *aggregated* into a single signature, and are used for n-of-n multisig without a dedicated multisig script. Wallets increasingly use Schnorr because it makes transactions smaller and cheaper.
 
 - **CashTokens.** Since the **May 2023** upgrade, Bitcoin Cash transactions can also carry **tokens** — both fungible tokens (like a currency or reward point) and non-fungible tokens (NFTs). Token data is encoded in a special token prefix on the output, alongside the BCH amount and locking script. This means the same transaction machinery that moves BCH can also move native digital assets.
+
+- **SLP tokens.** The **Simple Ledger Protocol (SLP)** is an older, separate token system that predates CashTokens. Instead of being built into the node, SLP tokens are carried in the \`OP_RETURN\` data field of an ordinary BCH transaction and validated by a separate indexer rather than the full node. This **loose coupling** means SLP can be adapted to other UTXO blockchains (like eCash) and is less exposed to changes in the base protocol. SLP uses its own address prefix — \`simpleledger:\` — to keep token-bearing outputs from being accidentally spent in a non-token-aware wallet.
+
+  SLP supports both fungible tokens (Type 1) and NFTs (via the **NFT1** spec, which groups child NFTs under a parent Group ID). A common rule of thumb in the ecosystem: **SLP is often preferred for NFTs**, because each NFT is a distinct, individually-identifiable UTXO that's easy to track and trade, while **CashTokens are often preferred for fungible tokens**, because they're validated directly by miners and can't be accidentally burned. Both systems let the same BCH transaction machinery move digital assets — they just take different approaches to how tokens are defined and secured.
 
 ## Chains and orphans
 
@@ -1693,7 +1697,7 @@ Let's summarize what makes a Bitcoin Cash transaction work:
 3. **Fees** — the implicit difference between inputs and outputs, paid to miners, based on transaction size.
 4. **Scripts** — locking scripts set the conditions to spend; unlocking scripts (with your signature) satisfy them. Script is a simple, safe stack language.
 5. **Standard types** — P2PKH (addresses), multisig, OP_RETURN (data), and P2SH (complex scripts as short hashes).
-6. **Modern additions** — Schnorr signatures and CashTokens.
+6. **Modern additions** — Schnorr signatures, CashTokens, and SLP tokens.
 
 Transactions are what turn Bitcoin Cash into *programmable money* — a global, open ledger where value can move from anyone to anyone, secured by cryptography rather than trust.
 
