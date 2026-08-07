@@ -106,8 +106,9 @@ on this list.
 
 **THORChain** is a decentralized cross-chain swap protocol. It lets you swap
 between assets like BTC, ETH, and BCH *without* creating an account or passing
-KYC. You use one of its front-end interfaces — **THORSwap** is the most popular —
-and swap whatever you already hold directly for BCH.
+KYC. You use a permissionless front end like
+[https://swap.thorchain.org/](https://swap.thorchain.org/) and swap whatever you
+already hold directly for BCH.
 
 This is the most permissionless option: there's no account, no identity check,
 and no one can freeze your coins. It's a great choice if you want to embody the
