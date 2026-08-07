@@ -4,7 +4,7 @@ date: "2026-08-06"
 order: 6
 description: "The blockchain data structure — how blocks are chained together by hashes, the anatomy of a block and its header, the genesis block, and the merkle trees that make transactions efficiently verifiable."
 source: "mastering-bitcoin-cash"
-video: "https://youtu.be/dQw4w9WgXcQ"
+video: "https://youtu.be/_ghGtuzD7DM"
 tags: ["Bitcoin Cash", "blockchain", "blocks", "merkle tree", "SPV"]
 ---
 
