@@ -29,6 +29,7 @@ export default function blogPostsPlugin() {
             date: data.date || null,
             excerpt: data.excerpt || '',
             tags: data.tags || [],
+            image: data.image || null,
             body: content,
           }
         })
