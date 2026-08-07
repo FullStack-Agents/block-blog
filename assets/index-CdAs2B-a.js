@@ -1862,7 +1862,7 @@ Let's summarize how the Bitcoin Cash network works:
 The Bitcoin Cash network is the trustless backbone of the whole system — a resilient, permissionless mesh where value flows directly from peer to peer, secured by cryptography and consensus rather than by any central authority.
 
 Ready for the next lesson? Head back to [BCH Education](#/education) to continue.
-`},{slug:"06-the-blockchain",title:"The Blockchain",date:"2026-08-06",order:6,description:"The blockchain data structure — how blocks are chained together by hashes, the anatomy of a block and its header, the genesis block, and the merkle trees that make transactions efficiently verifiable.",source:"mastering-bitcoin-cash",video:"https://youtu.be/dQw4w9WgXcQ",tags:["Bitcoin Cash","blockchain","blocks","merkle tree","SPV"],body:`
+`},{slug:"06-the-blockchain",title:"The Blockchain",date:"2026-08-06",order:6,description:"The blockchain data structure — how blocks are chained together by hashes, the anatomy of a block and its header, the genesis block, and the merkle trees that make transactions efficiently verifiable.",source:"mastering-bitcoin-cash",video:"https://youtu.be/_ghGtuzD7DM",tags:["Bitcoin Cash","blockchain","blocks","merkle tree","SPV"],body:`
 # The Blockchain
 
 At the heart of Bitcoin Cash is a data structure called the **blockchain** — an ordered, back-linked list of blocks of transactions. It's the public ledger that records every payment ever made, and it's what makes Bitcoin Cash a *trustless* system: instead of trusting a bank or a server to keep the books, every participant can independently verify the entire history of the network.
