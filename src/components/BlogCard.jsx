@@ -12,6 +12,16 @@ export default function BlogCard({ post }) {
 
   return (
     <Card className="mb-4 shadow-sm">
+      {post.image && (
+        <Link to={`/post/${post.slug}`} className="d-block">
+          <Card.Img
+            variant="top"
+            src={post.image}
+            alt={post.title}
+            style={{ height: '200px', objectFit: 'cover' }}
+          />
+        </Link>
+      )}
       <Card.Body>
         {dateStr && (
           <Card.Subtitle className="mb-2 text-muted small">
