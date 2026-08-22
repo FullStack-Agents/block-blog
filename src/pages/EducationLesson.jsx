@@ -5,6 +5,7 @@ import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 import VideoEmbed from '../components/VideoEmbed'
 import SourceAttribution from '../components/SourceAttribution'
+import { markdownComponents } from '../components/markdownComponents'
 
 // Lesson markdown bodies begin with a `# Title` heading, but the title is already
 // rendered as the <h1> below. Strip that leading heading so it doesn't appear twice.
@@ -77,7 +78,7 @@ export default function EducationLesson() {
         )}
 
         <div className="blog-content">
-          <ReactMarkdown remarkPlugins={[remarkGfm]}>
+          <ReactMarkdown remarkPlugins={[remarkGfm]} components={markdownComponents}>
             {stripLeadingHeading(lesson.body)}
           </ReactMarkdown>
         </div>

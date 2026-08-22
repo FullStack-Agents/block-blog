@@ -1,4 +1,5 @@
 import ReactMarkdown from 'react-markdown'
+import { markdownComponents } from './markdownComponents'
 
 // Post markdown bodies begin with a `# Title` heading, but the title is already
 // rendered as the <h1> below. Strip that leading heading so it doesn't appear twice.
@@ -39,7 +40,7 @@ export default function BlogPost({ post }) {
         </div>
       )}
       <div className="blog-content">
-        <ReactMarkdown>{stripLeadingHeading(post.body)}</ReactMarkdown>
+        <ReactMarkdown components={markdownComponents}>{stripLeadingHeading(post.body)}</ReactMarkdown>
       </div>
     </article>
   )

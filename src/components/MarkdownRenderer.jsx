@@ -1,6 +1,7 @@
 import React from 'react'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
+import { markdownComponents } from './markdownComponents'
 
 /**
  * Reusable markdown renderer.
@@ -17,7 +18,9 @@ export default function MarkdownRenderer({ content, variant = 'light' }) {
 
   return (
     <div className={className}>
-      <ReactMarkdown remarkPlugins={[remarkGfm]}>{content}</ReactMarkdown>
+      <ReactMarkdown remarkPlugins={[remarkGfm]} components={markdownComponents}>
+        {content}
+      </ReactMarkdown>
     </div>
   )
 }
