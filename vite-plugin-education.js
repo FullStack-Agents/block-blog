@@ -39,6 +39,7 @@ export default function educationPlugin() {
             section: data.section || null,
             source: data.source || null,
             video: data.video || null,
+            image: data.image || null,
             tags: data.tags || [],
             body: content,
           }
