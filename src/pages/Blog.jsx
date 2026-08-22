@@ -3,7 +3,7 @@ import { useSearchParams } from 'react-router-dom'
 import { getAllPosts } from '../utils/posts'
 import BlogCard from '../components/BlogCard'
 
-const PER_PAGE = 10
+const PER_PAGE = 9
 
 export default function Blog() {
   const [searchParams, setSearchParams] = useSearchParams()
