@@ -4,6 +4,7 @@ date: "2026-08-07"
 order: 9
 description: "Send BCH from one wallet to another with minimal-slp-wallet — generate a second wallet, confirm its zero balance, send a payment, and watch both balances change."
 section: "javascript-development"
+image: "/block-blog/images/javascript-development/js-dev-03-hero.png"
 tags: ["JavaScript", "Bitcoin Cash", "minimal-slp-wallet", "send", "transactions", "wallet", "tutorial"]
 ---
 
@@ -14,8 +15,6 @@ into it, and learned that a TXID is your receipt. In this lesson you'll **send
 BCH** — moving value from one wallet you control to another — and watch both
 balances update. This is the fundamental action that makes Bitcoin Cash a
 peer-to-peer electronic cash system.
-
-![Sending BCH](/block-blog/images/javascript-development/js-dev-03-hero.png)
 
 Here's the plan:
 

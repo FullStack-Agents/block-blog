@@ -6,6 +6,12 @@ import remarkGfm from 'remark-gfm'
 import VideoEmbed from '../components/VideoEmbed'
 import SourceAttribution from '../components/SourceAttribution'
 
+// Lesson markdown bodies begin with a `# Title` heading, but the title is already
+// rendered as the <h1> below. Strip that leading heading so it doesn't appear twice.
+function stripLeadingHeading(md) {
+  return md.replace(/^\s*#\s+.*\n/, '')
+}
+
 export default function EducationLesson() {
   const { slug } = useParams()
   const lesson = getLessonBySlug(slug)
@@ -36,6 +42,14 @@ export default function EducationLesson() {
       </nav>
 
       <article>
+        {lesson.image && (
+          <img
+            src={lesson.image}
+            alt={lesson.title}
+            className="img-fluid rounded mb-4 w-100"
+            style={{ maxHeight: '420px', objectFit: 'cover' }}
+          />
+        )}
         <h1 className="mb-2">{lesson.title}</h1>
         {lesson.date && (
           <p className="text-muted mb-4">
@@ -64,7 +78,7 @@ export default function EducationLesson() {
 
         <div className="blog-content">
           <ReactMarkdown remarkPlugins={[remarkGfm]}>
-            {lesson.body}
+            {stripLeadingHeading(lesson.body)}
           </ReactMarkdown>
         </div>
       </article>

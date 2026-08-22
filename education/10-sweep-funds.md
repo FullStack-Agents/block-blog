@@ -4,6 +4,7 @@ date: "2026-08-22"
 order: 10
 description: "Import a private key from a paper wallet, derive its address, check the balance, and sweep all the BCH to a new address you control with minimal-slp-wallet's sendAll() function."
 section: "javascript-development"
+image: "/block-blog/images/javascript-development/js-dev-04-hero.png"
 tags: ["JavaScript", "Bitcoin Cash", "minimal-slp-wallet", "paper-wallet", "private-key", "sweep", "tutorial"]
 ---
 
@@ -19,8 +20,6 @@ funds out in one go.
 That single, full transfer is called a **sweep**. In this lesson you'll learn
 how to import a paper wallet's private key, read its balance, and sweep
 everything to a fresh hot wallet you control.
-
-![Sweeping a paper wallet](/block-blog/images/javascript-development/js-dev-04-hero.png)
 
 Here's the plan:
 

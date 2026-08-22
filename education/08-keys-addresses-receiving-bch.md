@@ -4,6 +4,7 @@ date: "2026-08-07"
 order: 8
 description: "Generate your first Bitcoin Cash wallet with minimal-slp-wallet, understand keys and addresses, check a zero balance, receive BCH, and read your new balance and TXID."
 section: "javascript-development"
+image: "/block-blog/images/javascript-development/js-dev-02-hero.png"
 tags: ["JavaScript", "Bitcoin Cash", "minimal-slp-wallet", "keys", "addresses", "wallet", "tutorial"]
 ---
 
@@ -17,8 +18,6 @@ This lesson is where it clicks. By the end you'll have generated a real wallet,
 seen its balance read as **zero**, received some BCH, and watched that balance
 jump. Along the way you'll learn what a *key pair* is, what an *address* is, and
 why a *TXID* is your receipt for a transaction.
-
-![Keys and addresses](/block-blog/images/javascript-development/js-dev-02-hero.png)
 
 ## What is a key pair?
 

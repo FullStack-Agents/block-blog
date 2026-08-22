@@ -4,6 +4,7 @@ date: "2026-08-07"
 order: 7
 description: "An orientation for JavaScript developers new to Bitcoin Cash — the Cash Stack, why you should skip testnet and build on mainnet, and the best ways to get your first BCH."
 section: "javascript-development"
+image: "/block-blog/images/javascript-development/js-dev-01-hero.png"
 tags: ["JavaScript", "Bitcoin Cash", "Cash Stack", "minimal-slp-wallet", "developer", "tutorial"]
 ---
 
@@ -18,8 +19,6 @@ If you're coming from a web development background, most of what you already
 know — JavaScript, Node.js, npm, REST APIs — carries straight over. In this
 series you'll learn how to apply those skills to a censorship-resistant,
 peer-to-peer ledger. Let's get oriented.
-
-![JavaScript and Bitcoin Cash](/block-blog/images/javascript-development/js-dev-01-hero.png)
 
 ## The Cash Stack
 
