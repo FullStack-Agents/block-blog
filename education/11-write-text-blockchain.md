@@ -16,8 +16,6 @@ can hold more than just value. With a special output called **OP_RETURN**, you
 can carve **permanent, uneditable text** directly into the chain — a message
 that no one can alter or delete, ever.
 
-![Writing text to the blockchain](/block-blog/images/javascript-development/js-dev-05-hero.png)
-
 This is how services like [memo.cash](https://memo.cash) run a decentralized
 social feed, how tokens (SLP and CashTokens) declare their metadata, and how
 people create timestamps and proofs-of-existence. In this lesson you'll write
