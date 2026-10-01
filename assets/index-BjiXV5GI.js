@@ -156,16 +156,6 @@ None of these tools is a complete privacy solution alone. They address different
 
 The professionals think in layers like this. Each layer assumes the others might fail. Mixing is pointless if you then broadcast from your home IP; cold storage is pointless if your seed phrase is in a cloud notes app; a decentralized swap is weakened if you announce it.
 
-## A Word on Law and Ethics
-
-Let's be direct, because this topic attracts people with very different intentions.
-
-**Privacy tools are legal, and using them is not evidence of wrongdoing.** Financial privacy is a recognized interest — it protects people from kidnappers who can read their balance, from employers who want to police their politics, from abusive partners, from competitors doing market surveillance. The cryptography doesn't care why you use it, and a free society shouldn't require you to justify yourself.
-
-But here's the line: **using privacy tools to conceal the proceeds of a crime, or to evade a legal obligation like a tax, does not make that activity legal.** The tool changes what observers can *see*; it does not change what you *owe*, and it certainly doesn't immunize you from an investigation that starts from the off-chain side — your exchange records, your IP logs, your bank statements, a subpoena to a counterparty. People who treat mixers as an invisibility cloak rather than a privacy tool tend to discover this the hard way.
-
-Privacy is a shield. It is not a license.
-
 ## The Bottom Line
 
 Privacy tools work by attacking specific, well-defined leaks:
