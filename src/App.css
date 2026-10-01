@@ -112,12 +112,15 @@
   margin-bottom: 0;
 }
 
+.blog-content table,
 .markdown-content table {
   width: 100%;
   margin-bottom: 1rem;
   border-collapse: collapse;
 }
 
+.blog-content th,
+.blog-content td,
 .markdown-content th,
 .markdown-content td {
   border: 1px solid #dee2e6;
@@ -129,6 +132,7 @@
   border-color: rgba(255, 255, 255, 0.25);
 }
 
+.blog-content thead,
 .markdown-content thead {
   background-color: #f8f9fa;
 }

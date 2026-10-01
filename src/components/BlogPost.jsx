@@ -1,4 +1,5 @@
 import ReactMarkdown from 'react-markdown'
+import remarkGfm from 'remark-gfm'
 import { markdownComponents } from './markdownComponents'
 
 // Post markdown bodies begin with a `# Title` heading, but the title is already
@@ -40,7 +41,7 @@ export default function BlogPost({ post }) {
         </div>
       )}
       <div className="blog-content">
-        <ReactMarkdown components={markdownComponents}>{stripLeadingHeading(post.body)}</ReactMarkdown>
+        <ReactMarkdown remarkPlugins={[remarkGfm]} components={markdownComponents}>{stripLeadingHeading(post.body)}</ReactMarkdown>
       </div>
     </article>
   )
