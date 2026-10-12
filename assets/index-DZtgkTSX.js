@@ -30,7 +30,7 @@ Every blockchain so far has been built for humans. We buy blockspace, we stake t
 
 The tagline is blunt: *"$FLOP is food for your AI agent."*
 
-The project is led by **Arthur Hayes**, the BitMEX co-founder who came out of retirement to run **Flop Labs**. That pedigree is a big part of why an unlaunched network is getting outsized attention. But the design is the interesting part — so let's open it up.
+The project is led by **Arthur Hayes**, the BitMEX co-founder who came out of retirement to run **Flop Labs**. That pedigree is a big part of why an unlaunched network is getting outsized attention. The design, though, is the interesting part — so let's open it up.
 
 ## The problem: agents that can't pay their own way
 
