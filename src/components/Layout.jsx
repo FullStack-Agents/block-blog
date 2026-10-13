@@ -27,6 +27,9 @@ export default function BlockBlogLayout() {
               <NavLink to="/education" className="nav-link">
                 BCH Education
               </NavLink>
+              <NavLink to="/slp-tokens" className="nav-link">
+                SLP Tokens
+              </NavLink>
             </Nav>
           </Navbar.Collapse>
         </Container>

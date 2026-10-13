@@ -38,6 +38,15 @@ const SECTIONS = [
     cta: 'Start learning',
     variant: 'warning',
   },
+  {
+    to: '/slp-tokens',
+    title: 'SLP Tokens',
+    icon: '🎖️',
+    description:
+      'Tokens on Bitcoin Cash — what SLP is, how token metadata works, and the on-chain collection Block has minted.',
+    cta: 'Explore tokens',
+    variant: 'secondary',
+  },
 ]
 
 export default function Home() {
@@ -58,8 +67,9 @@ export default function Home() {
           <h2 className="h4 mb-3">Welcome</h2>
           <p className="text-muted">
             Explore fresh articles, learn about Bitcoin Cash with guided lessons,
-            ask questions and get answers from Block in real time, or dig through
-            the archive of past conversations. Pick a section to get started.
+            ask questions and get answers from Block in real time, dig through
+            the archive of past conversations, or see the tokens Block has
+            minted on-chain. Pick a section to get started.
           </p>
         </div>
 
