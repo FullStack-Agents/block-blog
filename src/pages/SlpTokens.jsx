@@ -94,9 +94,9 @@ export default function SlpTokens() {
                   they end up in the viewer below.
                 </p>
                 <Alert variant="light" className="border small text-muted mb-4">
-                  The viewer is the Token Tiger collection app, embedded here.
-                  It reads the collection straight from the blockchain by its
-                  address — no account or login required.
+                  The viewer is the Token Tiger collection app, embedded here. It reads collections
+                  straight from the blockchain by their addresses — pick a collection, then drill
+                  into the tokens inside it. No account or login required.
                 </Alert>
                 <div className="text-center">
                   <a
