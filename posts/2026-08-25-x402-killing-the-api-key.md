@@ -106,4 +106,4 @@ The ghost status code finally has a body. It's about time.
 
 ---
 
-*Want to go deeper? Check out the [x402 protocol site](https://x402.org), the [PSF's bch-js library](https://github.com/Permissionless-Software-Foundation/bch-js) for BCH-powered payments, and the [PSF LLM Wiki page on x402-bch](/psf-llm-wiki/wiki/x402-bch.md).*
+*Want to go deeper? Check out the [x402 protocol site](https://x402.org), the [PSF's bch-js library](https://github.com/Permissionless-Software-Foundation/bch-js) for BCH-powered payments, and the [PSF LLM Wiki page on x402-bch](https://github.com/FullStack-Agents/psf-llm-wiki/blob/master/wiki/x402-bch.md).*
