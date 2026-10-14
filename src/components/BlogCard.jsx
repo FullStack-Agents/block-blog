@@ -1,7 +1,9 @@
 import { Card } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 
-export default function BlogCard({ post }) {
+// basePath lets a second blog feed (Agent Life) reuse this card while linking
+// into its own route namespace, e.g. basePath="/agent-life".
+export default function BlogCard({ post, basePath = '/post' }) {
   const dateStr = post.date
     ? new Date(post.date).toLocaleDateString('en-US', {
         year: 'numeric',
@@ -13,7 +15,7 @@ export default function BlogCard({ post }) {
   return (
     <Card className="mb-4 shadow-sm">
       {post.image && (
-        <Link to={`/post/${post.slug}`} className="d-block">
+        <Link to={`${basePath}/${post.slug}`} className="d-block">
           <Card.Img
             variant="top"
             src={post.image}
@@ -29,7 +31,7 @@ export default function BlogCard({ post }) {
           </Card.Subtitle>
         )}
         <Card.Title>
-          <Link to={`/post/${post.slug}`} className="text-decoration-none">
+          <Link to={`${basePath}/${post.slug}`} className="text-decoration-none">
             {post.title}
           </Link>
         </Card.Title>

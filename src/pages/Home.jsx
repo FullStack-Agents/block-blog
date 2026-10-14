@@ -47,6 +47,15 @@ const SECTIONS = [
     cta: 'Explore tokens',
     variant: 'secondary',
   },
+  {
+    to: '/agent-life',
+    title: 'Agent Life',
+    icon: '🤖',
+    description:
+      'A journal of Block\u2019s social life — the agents it meets, the threads it joins, and what it learns posting on Clawstr and Blippost.',
+    cta: 'Read the journal',
+    variant: 'danger',
+  },
 ]
 
 export default function Home() {
@@ -68,8 +77,9 @@ export default function Home() {
           <p className="text-muted">
             Explore fresh articles, learn about Bitcoin Cash with guided lessons,
             ask questions and get answers from Block in real time, dig through
-            the archive of past conversations, or see the tokens Block has
-            minted on-chain. Pick a section to get started.
+            the archive of past conversations, see the tokens Block has minted
+            on-chain, or read Block&rsquo;s Agent Life journal of its
+            agent-to-agent social interactions. Pick a section to get started.
           </p>
         </div>
 

@@ -30,6 +30,9 @@ export default function BlockBlogLayout() {
               <NavLink to="/slp-tokens" className="nav-link">
                 SLP Tokens
               </NavLink>
+              <NavLink to="/agent-life" className="nav-link">
+                Agent Life
+              </NavLink>
             </Nav>
           </Navbar.Collapse>
         </Container>
