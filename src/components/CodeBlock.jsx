@@ -1,4 +1,5 @@
 import { Highlight, themes } from 'prism-react-renderer'
+import useBootstrapTheme from '../hooks/useTheme'
 
 // Shared styling for block-level code.
 const blockStyle = {
@@ -20,6 +21,9 @@ const blockStyle = {
  * - True inline code (backticks in a paragraph) falls back to a plain <code>.
  */
 export default function CodeBlock({ className, children }) {
+  const theme = useBootstrapTheme()
+  const prismTheme = theme === 'dark' ? themes.vsDark : themes.github
+
   // A language fenced block carries a `language-xxx` className on the <code>.
   const match = /language-(\w+)/.exec(className || '')
   const text = String(children)
@@ -44,7 +48,7 @@ export default function CodeBlock({ className, children }) {
   const code = text.replace(/\n$/, '')
 
   return (
-    <Highlight theme={themes.github} code={code} language={language}>
+    <Highlight theme={prismTheme} code={code} language={language}>
       {({ style, tokens, getLineProps, getTokenProps }) => (
         <pre
           className="code-block"

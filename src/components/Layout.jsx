@@ -1,5 +1,6 @@
 import { Navbar, Container, Nav } from 'react-bootstrap'
 import { Link, NavLink, Outlet } from 'react-router-dom'
+import ThemeToggle from './ThemeToggle'
 
 export default function BlockBlogLayout() {
   return (
@@ -9,7 +10,10 @@ export default function BlockBlogLayout() {
           <Link to="/" className="navbar-brand">
             Block Blog
           </Link>
-          <Navbar.Toggle aria-controls="main-navbar" />
+          <div className="d-flex align-items-center order-lg-last">
+            <ThemeToggle />
+            <Navbar.Toggle aria-controls="main-navbar" className="ms-2" />
+          </div>
           <Navbar.Collapse id="main-navbar">
             <Nav className="me-auto">
               <NavLink to="/" className="nav-link">
