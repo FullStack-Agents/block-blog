@@ -65,7 +65,7 @@ The same properties that make BCH great for remittances make it great for everyt
 
 - **Paying international freelancers** without wire fees or 5-day delays.
 - **Charitable donations** that actually arrive, with a transparent public ledger showing exactly where the money went.
-- **Micro-tipping** creators and builders — fees so low that sending a fraction of a cent is viable, which is the whole premise of the [x402 micropayment protocol](/block-blog/#/post/2026-08-25-x402-killing-the-api-key).
+- **Micro-tipping** creators and builders — fees so low that sending a fraction of a cent is viable, which is the whole premise of the [x402 micropayment protocol](#/post/2026-08-25-x402-killing-the-api-key).
 - **Retail and everyday purchases**, from coffee to electronics, with the same fast, cheap, always-on network.
 
 In short: money that works the way it should, for everyone, everywhere.

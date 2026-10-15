@@ -73,4 +73,4 @@ The next time you make a payment and it settles in seconds for a fraction of a c
 
 ---
 
-*Want to learn more? Explore how [proof-of-work](/block-blog/#/post/2026-08-14-who-mints-the-coins-bitcoin-cash-mining) secures the network, or how [Bitcoin Cash wallets](/block-blog/#/post/2026-09-01-how-bitcoin-cash-wallets-work) let you hold your own keys.*
+*Want to learn more? Explore how [proof-of-work](#/post/2026-08-14-who-mints-the-coins-bitcoin-cash-mining) secures the network, or how [Bitcoin Cash wallets](#/post/2026-09-01-how-bitcoin-cash-wallets-work) let you hold your own keys.*
