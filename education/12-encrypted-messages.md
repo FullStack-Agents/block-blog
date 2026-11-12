@@ -25,9 +25,9 @@ Yes. And the surprising part is where the pieces go:
 - **The blockchain** carries only a tiny **signal** — an OP_RETURN output
   telling the receiver *"there is a message for you, and here is its ID."*
 
-That split is what makes it practical, and by the end of this lesson you'll have
-built it. Both halves of the loop — sending and receiving — are short enough to
-read in one sitting.
+That split is an **efficiency** choice — the chain could carry the ciphertext
+itself, within limits — and by the end of this lesson you'll have built the
+sending and receiving halves of it.
 
 This is exactly how
 [**psf-msg-wallet**](https://github.com/Permissionless-Software-Foundation/psf-msg-wallet)
@@ -36,7 +36,7 @@ build the same flow in JavaScript, then map it back to the CLI commands.
 
 Here's the plan:
 
-1. Understand **why** the ciphertext isn't on the chain.
+1. Understand **why** the ciphertext goes to a relay and only the pointer goes on-chain.
 2. **Look up** the receiver's public key from the blockchain.
 3. **Encrypt** with that public key.
 4. **Publish** the ciphertext to a Nostr relay.
@@ -45,12 +45,31 @@ Here's the plan:
 
 ![How an encrypted message travels from one BCH address to another](/block-blog/images/javascript-development/js-dev-06-flow.png)
 
-## Why not put the ciphertext in the OP_RETURN?
+## Why send the ciphertext to Nostr instead of the chain?
 
 Fair question — the last lesson wrote text to the chain, so why not write the
-*encrypted* text there? Because of two hard numbers.
+*encrypted* text there?
 
-**First, the 220-byte OP_RETURN limit.** The encryption used by this stack adds
+You can. **Using a Nostr relay is an efficiency choice, not a technical
+necessity.** If your priority is **reducing dependencies** — one system instead
+of two, nothing that can be switched off — then a chain-only design is
+legitimate, within these limits:
+
+- **~95 bytes of plaintext per transaction.** OP_RETURN standardness caps the
+  total data to 223 bytes of locking script per transaction. Since the May 2021
+  upgrade a transaction may contain *multiple* OP_RETURN outputs, but the cap
+  applies **across all of them** — splitting your payload into two outputs does
+  not buy you a single extra byte. (That limit is node *policy*, not consensus,
+  so a miner could include a larger output — you just can't count on it, or on
+  other nodes relaying it.)
+- **Longer messages mean more transactions.** You would chunk the ciphertext,
+  tag each chunk with a protocol prefix and an index, and reassemble on read.
+  Every chunk is its own fee, and every chunk stays on the chain forever.
+- **Permanence cuts both ways.** The chain is replicated to every node and kept
+  indefinitely. That is exactly what you want for a notarised record, and
+  exactly what you don't want for a conversation.
+
+Why so little room per transaction? The encryption used in this stack adds
 **113–129 bytes of overhead** to every message — a 65-byte ephemeral public key,
 a 16-byte IV, and a 32-byte HMAC — and the ciphertext itself is padded to
 16-byte blocks. So:
@@ -65,24 +84,39 @@ Even a **single character** produces 129 bytes of ciphertext. Hex-encoded — as
 OP_RETURN data usually is — that's 258 characters, already past the limit. (You
 could squeeze about 95 bytes of plaintext in as raw binary, but
 `sendOpReturn()` builds its output with `Buffer.from(msg)`, which is UTF-8;
-arbitrary ciphertext bytes don't survive that trip.)
+arbitrary ciphertext bytes don't survive that trip without a custom builder.)
 
-**Second, permanence cuts both ways.** The chain is replicated to every node and
-kept forever. You don't want to pay for that and expose it that way for every
-chat message, especially when the thing is *already unreadable* — you'd be
-buying permanence for something that isn't even a public record.
+So the chain can hold short private notes, but it is a poor place for a mailbox:
+past ~95 bytes you are paying per chunk, and paying in **permanent, replicated
+block space** for data you may want to delete.
 
-So the design is: **small permanent pointer on the chain, big payload
-somewhere else.** The "somewhere else" here is a Nostr relay — a lightweight
+That's the efficiency argument. Here is the whole trade-off, honestly stated:
+
+| | Chain only | Chain + Nostr relay |
+| --- | --- | --- |
+| Dependencies | 1 | 2 |
+| Cost per message | one fee **per 95-byte chunk** | one small signal tx, size-independent |
+| Maximum size | ~95 bytes per tx, chunkable | kilobytes, bounded by the relay |
+| Where the ciphertext lives | on every full node, forever | on one relay, deletable |
+| If the relay vanishes | message survives | **message is gone** (signal remains) |
+| Timestamp | block time, trustless | `created_at`, asserted by the sender |
+
+Read the last two rows carefully — they are the price of the efficiency. And
+note what the relay *cannot* do: it holds no keys, so it can drop your message
+but never read it.
+
+This stack chose **efficiency**: one cheap signal per message no matter how long
+it is, and no chat logs pushed into permanent block space. The cost is a second
+dependency and a party that can refuse to store data. If you would rather have
+fewer moving parts, chunk the ciphertext into OP_RETURN outputs across several
+transactions and skip the relay entirely — the encryption, key lookup and
+signalling are all identical; only the transport changes.
+
+So the design here is: **small permanent pointer on the chain, big payload
+somewhere else.** The "somewhere else" is a Nostr relay — a lightweight
 websocket server that stores signed events by ID. Delete the relay's data and
 you lose the *message body*, but the signal on the chain still records that a
 message was sent, by whom, when, and to whom.
-
-> **This is a real trade-off, not a free lunch.** On-chain content is
-> permanent and trustless; the relay is neither. A relay operator can drop your
-> ciphertext. Nobody can read it — the encryption is end-to-end and the relay
-> holds no keys — but they can refuse to store it. That's why the *signal* lives
-> on BCH: it's the censorship-resistant part.
 
 ## Set up
 
@@ -504,11 +538,15 @@ Pull back and look at the shape of it:
   message exists, who sent it, and where to find it — permanently. The bulky,
   private part lives where bulk is cheap and deletable.
 - **Permanence has a price, and the design respects it.** 88 bytes of pointer on
-  the chain, 177 bytes of ciphertext off it.
+  the chain, 177 bytes of ciphertext off it. That split is an **efficiency**
+  choice: the same encryption works with the ciphertext chunked into OP_RETURN
+  outputs, it just costs more and leaves the message on-chain forever.
 
 That split — public commitment, private payload — is a pattern you'll see again
 and again in this space: tokens point at metadata, timestamping services point at
 documents, and here, messages point at ciphertext. Learn to spot it and the
 "impossible" parts of decentralized apps start to look like ordinary engineering.
+And when you build one yourself, ask the question this lesson opened with: **what
+is this dependency buying me, and what would I lose by removing it?**
 
 Ready for more? Head back to [BCH Education](#/education) to continue.
