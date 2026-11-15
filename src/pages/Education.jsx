@@ -1,6 +1,7 @@
-import { Container, Row, Col, Card, Button } from 'react-bootstrap'
+import { Container, Row, Col, Button } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import { getAllLessons } from '../utils/lessons'
+import LessonCard from '../components/LessonCard'
 
 // Ordered list of education tracks. Each lesson's `section` frontmatter field
 // maps to one of these keys. Order here controls the order on the page.
@@ -72,40 +73,24 @@ export default function Education() {
               <Row>
                 {section.lessons.map((lesson, index) => (
                   <Col key={lesson.slug} md={6} lg={4} className="mb-4">
-                    <Card className="h-100 shadow-sm">
-                      <Card.Body className="d-flex flex-column">
-                        <Card.Subtitle className="mb-2 text-muted text-uppercase small">
-                          Lesson {index + 1}
-                        </Card.Subtitle>
-                        <Card.Title>
-                          <Link
-                            to={`/education/${lesson.slug}`}
-                            className="text-decoration-none"
-                          >
-                            {lesson.title}
-                          </Link>
-                        </Card.Title>
-                        {lesson.description && (
-                          <Card.Text className="text-muted flex-grow-1">
-                            {lesson.description}
-                          </Card.Text>
-                        )}
-                        <div className="mt-3">
-                          <Link
-                            to={`/education/${lesson.slug}`}
-                            className="text-decoration-none"
-                          >
-                            <Button variant={section.variant} size="sm">
-                              Start lesson
-                            </Button>
-                          </Link>
-                        </div>
-                      </Card.Body>
-                    </Card>
+                    <LessonCard
+                      lesson={lesson}
+                      index={index}
+                      variant={section.variant}
+                    />
                   </Col>
                 ))}
               </Row>
             )}
+
+            {section.key === 'javascript-development' &&
+              section.lessons.length > 0 && (
+                <div className="text-center mt-2">
+                  <Link to="/javascript-lessons" className="text-decoration-none">
+                    <Button variant={section.variant}>See More Lessons</Button>
+                  </Link>
+                </div>
+              )}
           </section>
         ))}
       </Container>

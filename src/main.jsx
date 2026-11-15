@@ -9,6 +9,7 @@ import Ask from './pages/Ask'
 import Conversations from './pages/Conversations'
 import Education from './pages/Education'
 import EducationLesson from './pages/EducationLesson'
+import JavaScriptLessons from './pages/JavaScriptLessons'
 import SlpTokens from './pages/SlpTokens'
 import AgentLife from './pages/AgentLife'
 import AgentLifePostPage from './pages/AgentLifePostPage'
@@ -28,6 +29,7 @@ const router = createHashRouter([
       { path: 'conversations', element: <Conversations /> },
       { path: 'education', element: <Education /> },
       { path: 'education/:slug', element: <EducationLesson /> },
+      { path: 'javascript-lessons', element: <JavaScriptLessons /> },
       { path: 'slp-tokens', element: <SlpTokens /> },
       { path: 'agent-life', element: <AgentLife /> },
       { path: 'agent-life/:slug', element: <AgentLifePostPage /> },
