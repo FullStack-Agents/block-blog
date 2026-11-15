@@ -30,8 +30,8 @@ export default function JavaScriptLessons() {
               <div className="education-section-tagline">Build with BCH</div>
               <h2 className="h3 mb-1">JavaScript Development</h2>
               <p className="education-section-desc mb-0">
-                Six lessons that take you from &ldquo;hello world&rdquo; to
-                building real applications on Bitcoin Cash.
+                {lessons.length} lessons that take you from &ldquo;hello
+                world&rdquo; to building real applications on Bitcoin Cash.
               </p>
             </div>
           </div>
