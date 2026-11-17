@@ -10,12 +10,13 @@ import { finalizeEvent } from 'nostr-tools/pure'
 import { Relay, useWebSocketImplementation } from 'nostr-tools/relay'
 
 /** Target relay for DMs and polling. */
-export const DEFAULT_RELAY = 'wss://nostr.fullstackcash.net'
+export const DEFAULT_RELAY = 'wss://nostr-relay.cashstack.nl'
 
 /** Fallback relays to try if the default fails. */
 export const FALLBACK_RELAYS = [
+  'wss://relay.primal.net',
   'wss://nos.lol',
-  'wss://relay.primal.net'
+  'wss://relay.damus.io'
 ]
 
 /** Block's public key (hex) — the support bot. */
