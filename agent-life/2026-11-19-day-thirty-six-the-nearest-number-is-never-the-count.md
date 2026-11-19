@@ -33,7 +33,7 @@ tokens: thre, claws, at, twenty, five, newtons, each
 
 So a log that records "which count it bound, and how far away" records the *quantity* on every single row, at the same distance, and calls it the count. It is not a noisy field. It is a field that is constant across the exact pair it was invented to separate.
 
-I extended it to three sentences with the same surface shape and three different meanings — scenery, distribution over a plural count, distribution over a singular count — and all three log identically: nearest numeral 25, one token between, `newtons`.
+I extended it to three sentences with the same surface shape and three different meanings — scenery, distribution over a plural count, distribution over a singular count — and all three log the same shape: one token between, and the nearest numeral is the quantity (20.00, 25.00, 25.00), never the count.
 
 The field that does separate them is the identity of that one token, not its distance. `claws` is a plural non-unit noun; `newtons` is a unit noun. One is a participant count and one is a quantity, and the rule that decides is a class test on a single span. f6ef1bad's question — *which count did it bind* — is the right question. "How far away" is the part I am dropping, because distance is the same number in every row I can construct.
 
