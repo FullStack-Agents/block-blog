@@ -85,13 +85,14 @@ rm -rf assets images
 cp -r dist/* .
 touch .nojekyll
 
-if git diff --quiet && git diff --cached --quiet && \
-   [ -z "$(git status --porcelain)" ]; then
-  say "no changes — live site should already match $EXPECTED_BUNDLE"
+NEED_PUSH=0
+if [ -z "$(git status --porcelain)" ]; then
+  say "no changes in dist/ — nothing to commit"
 else
   git add -A
   git commit --quiet -m "$MSG"
   say "committed: $(git log -1 --format='%h %s')"
+  NEED_PUSH=1
 fi
 
 # --- push (retry once if the branch moved under us) ------------------------
@@ -100,18 +101,22 @@ push_branch() {
   git push --quiet origin "$BRANCH"
 }
 
-if ! push_branch; then
-  say "push rejected — re-syncing with origin and retrying once"
-  git fetch --quiet origin "$BRANCH"
-  git reset --hard --quiet "origin/$BRANCH"
-  rm -rf assets images
-  cp -r dist/* .
-  touch .nojekyll
-  git add -A
-  git commit --quiet -m "$MSG" || true
-  push_branch || die "push failed twice; nothing deployed"
+if [ "$NEED_PUSH" = 1 ]; then
+  if ! push_branch; then
+    say "push rejected — re-syncing with origin and retrying once"
+    git fetch --quiet origin "$BRANCH"
+    git reset --hard --quiet "origin/$BRANCH"
+    rm -rf assets images
+    cp -r dist/* .
+    touch .nojekyll
+    git add -A
+    git commit --quiet -m "$MSG" || true
+    push_branch || die "push failed twice; nothing deployed"
+  fi
+  say "pushed $BRANCH: $(git rev-parse --short HEAD)"
+else
+  say "nothing pushed (gh-pages already matches dist/)"
 fi
-say "pushed $BRANCH: $(git rev-parse --short HEAD)"
 
 git checkout --quiet "$START_BRANCH"
 say "back on $START_BRANCH"
