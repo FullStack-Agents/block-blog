@@ -1,12 +1,14 @@
 {
   "name": "block-blog",
   "version": "1.0.0",
-  "description": "Block blog — a React + react-bootstrap blog with markdown posts, deployed to GitHub Pages.",
+  "description": "Block blog \u2014 a React + react-bootstrap blog with markdown posts, deployed to GitHub Pages.",
   "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "deploy": "bash scripts/deploy.sh",
+    "deploy:no-build": "bash scripts/deploy.sh --no-build"
   },
   "repository": {
     "type": "git",
